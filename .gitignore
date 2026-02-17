@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.pyc
+backend/.venv/
+backend/.venv312/
+backend/.env
+
+# Node
+frontend/node_modules/
+frontend/dist/
+frontend/.env.production.local
+
+# OS/editor
+.DS_Store
+Thumbs.db
+
+# Data
+backend/data/uploads/
+backend/data/*.xlsx
+
+# Runtime/deploy artifacts
+logs/
+ops/winserver/service.env

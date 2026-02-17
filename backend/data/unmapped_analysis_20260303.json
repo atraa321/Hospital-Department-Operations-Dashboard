@@ -1,0 +1,2106 @@
+{
+  "health": {
+    "status": "ok"
+  },
+  "recalc": {
+    "total": 8097,
+    "mapped": 7840,
+    "unmapped": 257
+  },
+  "unmapped_total": 257,
+  "reason_top": [
+    [
+      "未命中DIP目录组合",
+      208
+    ],
+    [
+      "ICD3可命中但未完成入组",
+      39
+    ],
+    [
+      "主诊断已命中但操作未命中",
+      10
+    ]
+  ],
+  "diag_top": [
+    [
+      "I84.8",
+      43
+    ],
+    [
+      "O80.0",
+      41
+    ],
+    [
+      "O04.9",
+      18
+    ],
+    [
+      "I84.2",
+      15
+    ],
+    [
+      "O33.9",
+      14
+    ],
+    [
+      "I69.3",
+      6
+    ],
+    [
+      "I69.1",
+      6
+    ],
+    [
+      "I84.9",
+      5
+    ],
+    [
+      "O45.9",
+      4
+    ],
+    [
+      "I84.1",
+      4
+    ],
+    [
+      "O02.1",
+      4
+    ],
+    [
+      "N97.9",
+      4
+    ],
+    [
+      "Z03.5",
+      4
+    ],
+    [
+      "O03.9",
+      3
+    ],
+    [
+      "Z54.0",
+      3
+    ],
+    [
+      "S87.8",
+      2
+    ],
+    [
+      "F43.1",
+      2
+    ],
+    [
+      "S66.3",
+      2
+    ],
+    [
+      "E80.6",
+      2
+    ],
+    [
+      "Z31.0",
+      2
+    ],
+    [
+      "O04.4",
+      2
+    ],
+    [
+      "S40.0",
+      2
+    ],
+    [
+      "S90.3",
+      2
+    ],
+    [
+      "S50.8",
+      2
+    ],
+    [
+      "S60.8",
+      2
+    ],
+    [
+      "N89.5",
+      2
+    ],
+    [
+      "S10.9",
+      2
+    ],
+    [
+      "I84.5",
+      2
+    ],
+    [
+      "S70.1",
+      1
+    ],
+    [
+      "C77.9",
+      1
+    ],
+    [
+      "S64.4",
+      1
+    ],
+    [
+      "D23.2",
+      1
+    ],
+    [
+      "Z54.2",
+      1
+    ],
+    [
+      "O70.1",
+      1
+    ],
+    [
+      "G53.0",
+      1
+    ],
+    [
+      "T92.3",
+      1
+    ],
+    [
+      "S90.9",
+      1
+    ],
+    [
+      "S31.0",
+      1
+    ],
+    [
+      "O02.0",
+      1
+    ],
+    [
+      "Z45.8",
+      1
+    ],
+    [
+      "I69.8",
+      1
+    ],
+    [
+      "O08.8",
+      1
+    ],
+    [
+      "L73.8",
+      1
+    ],
+    [
+      "S96.8",
+      1
+    ],
+    [
+      "D23.5",
+      1
+    ],
+    [
+      "L29.0",
+      1
+    ],
+    [
+      "O34.2",
+      1
+    ],
+    [
+      "T65.8",
+      1
+    ],
+    [
+      "S60.0",
+      1
+    ],
+    [
+      "L82.X",
+      1
+    ],
+    [
+      "D22.7",
+      1
+    ],
+    [
+      "C77.0",
+      1
+    ],
+    [
+      "Q74.0",
+      1
+    ],
+    [
+      "L05.0",
+      1
+    ],
+    [
+      "J33.9",
+      1
+    ],
+    [
+      "O73.0",
+      1
+    ],
+    [
+      "S63.0",
+      1
+    ],
+    [
+      "O34.4",
+      1
+    ],
+    [
+      "H01.9",
+      1
+    ],
+    [
+      "S50.0",
+      1
+    ],
+    [
+      "M76.6",
+      1
+    ],
+    [
+      "S51.9",
+      1
+    ],
+    [
+      "Z30.5",
+      1
+    ],
+    [
+      "D15.2",
+      1
+    ],
+    [
+      "S90.8",
+      1
+    ],
+    [
+      "O40.X",
+      1
+    ],
+    [
+      "S60.9",
+      1
+    ],
+    [
+      "S50.1",
+      1
+    ],
+    [
+      "S31.8",
+      1
+    ],
+    [
+      "O30.0",
+      1
+    ],
+    [
+      "S41.1",
+      1
+    ],
+    [
+      "O03.1",
+      1
+    ],
+    [
+      "S89.9",
+      1
+    ],
+    [
+      "T91.1",
+      1
+    ],
+    [
+      "I84.3",
+      1
+    ],
+    [
+      "O34.3",
+      1
+    ],
+    [
+      "U07.1",
+      1
+    ],
+    [
+      "S90.0",
+      1
+    ],
+    [
+      "S70.0",
+      1
+    ],
+    [
+      "S53.1",
+      1
+    ],
+    [
+      "D13.6",
+      1
+    ],
+    [
+      "S60.2",
+      1
+    ],
+    [
+      "O03.4",
+      1
+    ],
+    [
+      "O04.1",
+      1
+    ],
+    [
+      "I84.7",
+      1
+    ]
+  ],
+  "diag_op_top": [
+    {
+      "diag": "I84.8",
+      "op": "49.46",
+      "count": 40
+    },
+    {
+      "diag": "O80.0",
+      "op": "75.6902",
+      "count": 15
+    },
+    {
+      "diag": "O33.9",
+      "op": "74.1X01",
+      "count": 14
+    },
+    {
+      "diag": "O80.0",
+      "op": "NULL",
+      "count": 10
+    },
+    {
+      "diag": "I84.2",
+      "op": "49.46",
+      "count": 8
+    },
+    {
+      "diag": "O04.9",
+      "op": "69.0201",
+      "count": 6
+    },
+    {
+      "diag": "I69.3",
+      "op": "NULL",
+      "count": 6
+    },
+    {
+      "diag": "O80.0",
+      "op": "71.7102",
+      "count": 5
+    },
+    {
+      "diag": "I69.1",
+      "op": "NULL",
+      "count": 5
+    },
+    {
+      "diag": "O04.9",
+      "op": "69.0200X003",
+      "count": 4
+    },
+    {
+      "diag": "I84.9",
+      "op": "49.46",
+      "count": 4
+    },
+    {
+      "diag": "Z03.5",
+      "op": "NULL",
+      "count": 4
+    },
+    {
+      "diag": "O04.9",
+      "op": "NULL",
+      "count": 4
+    },
+    {
+      "diag": "I84.2",
+      "op": "NULL",
+      "count": 3
+    },
+    {
+      "diag": "O80.0",
+      "op": "73.0900X001",
+      "count": 3
+    },
+    {
+      "diag": "O45.9",
+      "op": "NULL",
+      "count": 3
+    },
+    {
+      "diag": "I84.1",
+      "op": "49.4900X002",
+      "count": 3
+    },
+    {
+      "diag": "N97.9",
+      "op": "66.7905",
+      "count": 3
+    },
+    {
+      "diag": "Z54.0",
+      "op": "NULL",
+      "count": 3
+    },
+    {
+      "diag": "O80.0",
+      "op": "67.61",
+      "count": 2
+    },
+    {
+      "diag": "I84.8",
+      "op": "49.3906",
+      "count": 2
+    },
+    {
+      "diag": "S87.8",
+      "op": "NULL",
+      "count": 2
+    },
+    {
+      "diag": "F43.1",
+      "op": "NULL",
+      "count": 2
+    },
+    {
+      "diag": "E80.6",
+      "op": "NULL",
+      "count": 2
+    },
+    {
+      "diag": "O02.1",
+      "op": "69.5103",
+      "count": 2
+    },
+    {
+      "diag": "S40.0",
+      "op": "NULL",
+      "count": 2
+    },
+    {
+      "diag": "S50.8",
+      "op": "NULL",
+      "count": 2
+    },
+    {
+      "diag": "S10.9",
+      "op": "NULL",
+      "count": 2
+    },
+    {
+      "diag": "I84.5",
+      "op": "49.4900X002",
+      "count": 2
+    },
+    {
+      "diag": "S70.1",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "C77.9",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "O80.0",
+      "op": "75.8X00X002",
+      "count": 1
+    },
+    {
+      "diag": "S64.4",
+      "op": "23.1902",
+      "count": 1
+    },
+    {
+      "diag": "I84.9",
+      "op": "49.3906",
+      "count": 1
+    },
+    {
+      "diag": "D23.2",
+      "op": "86.3X03",
+      "count": 1
+    },
+    {
+      "diag": "I84.2",
+      "op": "49.3906",
+      "count": 1
+    },
+    {
+      "diag": "Z54.2",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "O70.1",
+      "op": "75.6902",
+      "count": 1
+    },
+    {
+      "diag": "G53.0",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "T92.3",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "S90.9",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "S31.0",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "O02.0",
+      "op": "69.5202",
+      "count": 1
+    },
+    {
+      "diag": "Z45.8",
+      "op": "97.8700X001",
+      "count": 1
+    },
+    {
+      "diag": "I69.8",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "O08.8",
+      "op": "68.1200X001",
+      "count": 1
+    },
+    {
+      "diag": "I84.2",
+      "op": "17.98611",
+      "count": 1
+    },
+    {
+      "diag": "S66.3",
+      "op": "82.8600X011",
+      "count": 1
+    },
+    {
+      "diag": "Z31.0",
+      "op": "3.7906",
+      "count": 1
+    },
+    {
+      "diag": "S66.3",
+      "op": "82.4500X012",
+      "count": 1
+    },
+    {
+      "diag": "I84.1",
+      "op": "49.46",
+      "count": 1
+    },
+    {
+      "diag": "O80.0",
+      "op": "73.01",
+      "count": 1
+    },
+    {
+      "diag": "O04.4",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "L73.8",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "S96.8",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "D23.5",
+      "op": "83.3900X017",
+      "count": 1
+    },
+    {
+      "diag": "O02.1",
+      "op": "69.0200X003",
+      "count": 1
+    },
+    {
+      "diag": "L29.0",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "O34.2",
+      "op": "74.1X02",
+      "count": 1
+    },
+    {
+      "diag": "I69.1",
+      "op": "27.4300X011",
+      "count": 1
+    },
+    {
+      "diag": "T65.8",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "S60.0",
+      "op": "86.5900X006",
+      "count": 1
+    },
+    {
+      "diag": "L82.X",
+      "op": "86.3X02",
+      "count": 1
+    },
+    {
+      "diag": "I84.2",
+      "op": "49.4900X002",
+      "count": 1
+    },
+    {
+      "diag": "N97.9",
+      "op": "54.5101",
+      "count": 1
+    },
+    {
+      "diag": "D22.7",
+      "op": "86.3X02",
+      "count": 1
+    },
+    {
+      "diag": "C77.0",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "Q74.0",
+      "op": "82.2101",
+      "count": 1
+    },
+    {
+      "diag": "O04.9",
+      "op": "69.0100X002",
+      "count": 1
+    },
+    {
+      "diag": "L05.0",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "J33.9",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "S90.3",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "O73.0",
+      "op": "75.6905",
+      "count": 1
+    },
+    {
+      "diag": "I84.8",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "S63.0",
+      "op": "79.8301",
+      "count": 1
+    },
+    {
+      "diag": "Z31.0",
+      "op": "66.73",
+      "count": 1
+    },
+    {
+      "diag": "O34.4",
+      "op": "67.1200X001",
+      "count": 1
+    },
+    {
+      "diag": "H01.9",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "O04.4",
+      "op": "68.2101",
+      "count": 1
+    },
+    {
+      "diag": "O80.0",
+      "op": "75.51",
+      "count": 1
+    },
+    {
+      "diag": "S50.0",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "M76.6",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "S51.9",
+      "op": "83.6501",
+      "count": 1
+    },
+    {
+      "diag": "S60.8",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "O04.9",
+      "op": "69.0202",
+      "count": 1
+    },
+    {
+      "diag": "Z30.5",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "D15.2",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "S60.8",
+      "op": "83.0903",
+      "count": 1
+    },
+    {
+      "diag": "O04.9",
+      "op": "69.5103",
+      "count": 1
+    },
+    {
+      "diag": "S90.8",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "O40.X",
+      "op": "74.1X01",
+      "count": 1
+    },
+    {
+      "diag": "S60.9",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "S50.1",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "S31.8",
+      "op": "49.9302",
+      "count": 1
+    },
+    {
+      "diag": "O03.9",
+      "op": "3.9101",
+      "count": 1
+    },
+    {
+      "diag": "O02.1",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "N89.5",
+      "op": "71.0100X002",
+      "count": 1
+    },
+    {
+      "diag": "O30.0",
+      "op": "74.1X01",
+      "count": 1
+    },
+    {
+      "diag": "S41.1",
+      "op": "86.5900X006",
+      "count": 1
+    },
+    {
+      "diag": "O45.9",
+      "op": "69.0201",
+      "count": 1
+    },
+    {
+      "diag": "O80.0",
+      "op": "75.4X00X002",
+      "count": 1
+    },
+    {
+      "diag": "O03.1",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "O80.0",
+      "op": "3.9101",
+      "count": 1
+    },
+    {
+      "diag": "S89.9",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "T91.1",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "I84.3",
+      "op": "49.4701",
+      "count": 1
+    },
+    {
+      "diag": "S90.3",
+      "op": "83.0903",
+      "count": 1
+    },
+    {
+      "diag": "O34.3",
+      "op": "67.5901",
+      "count": 1
+    },
+    {
+      "diag": "U07.1",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "S90.0",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "O04.9",
+      "op": "73.8X00X003",
+      "count": 1
+    },
+    {
+      "diag": "S70.0",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "O03.9",
+      "op": "69.5102",
+      "count": 1
+    },
+    {
+      "diag": "S53.1",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "I84.2",
+      "op": "45.2302",
+      "count": 1
+    },
+    {
+      "diag": "D13.6",
+      "op": "52.5202",
+      "count": 1
+    },
+    {
+      "diag": "O80.0",
+      "op": "73.6X01",
+      "count": 1
+    },
+    {
+      "diag": "N89.5",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "S60.2",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "O03.9",
+      "op": "NULL",
+      "count": 1
+    },
+    {
+      "diag": "O03.4",
+      "op": "74.1X01",
+      "count": 1
+    },
+    {
+      "diag": "O04.1",
+      "op": "69.5202",
+      "count": 1
+    },
+    {
+      "diag": "I84.7",
+      "op": "NULL",
+      "count": 1
+    }
+  ],
+  "sample": [
+    {
+      "patient_id": "90172",
+      "diagnosis_code": "O80.0",
+      "surgery_code": "71.7102",
+      "mapped_diag_code": "O80.0",
+      "mapped_surgery_code": "71.7102",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:44"
+    },
+    {
+      "patient_id": "90681",
+      "diagnosis_code": "O80.0",
+      "surgery_code": "71.7102",
+      "mapped_diag_code": "O80.0",
+      "mapped_surgery_code": "71.7102",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:44"
+    },
+    {
+      "patient_id": "91061",
+      "diagnosis_code": "O80.0",
+      "surgery_code": "75.6902",
+      "mapped_diag_code": "O80.0",
+      "mapped_surgery_code": "75.6902",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:44"
+    },
+    {
+      "patient_id": "90129",
+      "diagnosis_code": "I84.8",
+      "surgery_code": "49.46",
+      "mapped_diag_code": "I84.8",
+      "mapped_surgery_code": "49.46",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:44"
+    },
+    {
+      "patient_id": "90365",
+      "diagnosis_code": "S70.1",
+      "surgery_code": null,
+      "mapped_diag_code": "S70.1",
+      "mapped_surgery_code": null,
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:44"
+    },
+    {
+      "patient_id": "90632",
+      "diagnosis_code": "O80.0",
+      "surgery_code": "71.7102",
+      "mapped_diag_code": "O80.0",
+      "mapped_surgery_code": "71.7102",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:44"
+    },
+    {
+      "patient_id": "90712",
+      "diagnosis_code": "C77.9",
+      "surgery_code": null,
+      "mapped_diag_code": "C77.9",
+      "mapped_surgery_code": null,
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "ICD3可命中但未完成入组",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:44"
+    },
+    {
+      "patient_id": "90238",
+      "diagnosis_code": "I84.8",
+      "surgery_code": "49.46",
+      "mapped_diag_code": "I84.8",
+      "mapped_surgery_code": "49.46",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:44"
+    },
+    {
+      "patient_id": "90514",
+      "diagnosis_code": "O04.9",
+      "surgery_code": "69.0201",
+      "mapped_diag_code": "O04.9",
+      "mapped_surgery_code": "69.0201",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:44"
+    },
+    {
+      "patient_id": "82828",
+      "diagnosis_code": "O80.0",
+      "surgery_code": "67.61",
+      "mapped_diag_code": "O80.0",
+      "mapped_surgery_code": "67.61",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "82835",
+      "diagnosis_code": "O33.9",
+      "surgery_code": "74.1X01",
+      "mapped_diag_code": "O33.9",
+      "mapped_surgery_code": "74.1X01",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "82836",
+      "diagnosis_code": "I69.3",
+      "surgery_code": null,
+      "mapped_diag_code": "I69.3",
+      "mapped_surgery_code": null,
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "ICD3可命中但未完成入组",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "82852",
+      "diagnosis_code": "I84.8",
+      "surgery_code": "49.3906",
+      "mapped_diag_code": "I84.8",
+      "mapped_surgery_code": "49.3906",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "82860",
+      "diagnosis_code": "O80.0",
+      "surgery_code": "75.8X00X002",
+      "mapped_diag_code": "O80.0",
+      "mapped_surgery_code": "75.8X00X002",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "82883",
+      "diagnosis_code": "S64.4",
+      "surgery_code": "23.1902",
+      "mapped_diag_code": "S64.4",
+      "mapped_surgery_code": "23.1902",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "主诊断已命中但操作未命中",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "82942",
+      "diagnosis_code": "I84.2",
+      "surgery_code": null,
+      "mapped_diag_code": "I84.2",
+      "mapped_surgery_code": null,
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "82945",
+      "diagnosis_code": "I84.8",
+      "surgery_code": "49.3906",
+      "mapped_diag_code": "I84.8",
+      "mapped_surgery_code": "49.3906",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "82950",
+      "diagnosis_code": "I84.9",
+      "surgery_code": "49.3906",
+      "mapped_diag_code": "I84.9",
+      "mapped_surgery_code": "49.3906",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "82964",
+      "diagnosis_code": "I84.2",
+      "surgery_code": "49.46",
+      "mapped_diag_code": "I84.2",
+      "mapped_surgery_code": "49.46",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "83001",
+      "diagnosis_code": "O80.0",
+      "surgery_code": "73.0900X001",
+      "mapped_diag_code": "O80.0",
+      "mapped_surgery_code": "73.0900X001",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "83017",
+      "diagnosis_code": "D23.2",
+      "surgery_code": "86.3X03",
+      "mapped_diag_code": "D23.2",
+      "mapped_surgery_code": "86.3X03",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "主诊断已命中但操作未命中",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "83037",
+      "diagnosis_code": "I84.2",
+      "surgery_code": "49.3906",
+      "mapped_diag_code": "I84.2",
+      "mapped_surgery_code": "49.3906",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "83088",
+      "diagnosis_code": "O80.0",
+      "surgery_code": null,
+      "mapped_diag_code": "O80.0",
+      "mapped_surgery_code": null,
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "83106",
+      "diagnosis_code": "I84.2",
+      "surgery_code": "49.46",
+      "mapped_diag_code": "I84.2",
+      "mapped_surgery_code": "49.46",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "83125",
+      "diagnosis_code": "I84.2",
+      "surgery_code": "49.46",
+      "mapped_diag_code": "I84.2",
+      "mapped_surgery_code": "49.46",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "83147",
+      "diagnosis_code": "Z54.2",
+      "surgery_code": null,
+      "mapped_diag_code": "Z54.2",
+      "mapped_surgery_code": null,
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "ICD3可命中但未完成入组",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "83277",
+      "diagnosis_code": "O70.1",
+      "surgery_code": "75.6902",
+      "mapped_diag_code": "O70.1",
+      "mapped_surgery_code": "75.6902",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "83327",
+      "diagnosis_code": "O80.0",
+      "surgery_code": "75.6902",
+      "mapped_diag_code": "O80.0",
+      "mapped_surgery_code": "75.6902",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "90054",
+      "diagnosis_code": "S87.8",
+      "surgery_code": null,
+      "mapped_diag_code": "S87.8",
+      "mapped_surgery_code": null,
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "90837",
+      "diagnosis_code": "I84.8",
+      "surgery_code": "49.46",
+      "mapped_diag_code": "I84.8",
+      "mapped_surgery_code": "49.46",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "90653",
+      "diagnosis_code": "O80.0",
+      "surgery_code": "75.6902",
+      "mapped_diag_code": "O80.0",
+      "mapped_surgery_code": "75.6902",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "91065",
+      "diagnosis_code": "O33.9",
+      "surgery_code": "74.1X01",
+      "mapped_diag_code": "O33.9",
+      "mapped_surgery_code": "74.1X01",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "90826",
+      "diagnosis_code": "G53.0",
+      "surgery_code": null,
+      "mapped_diag_code": "G53.0",
+      "mapped_surgery_code": null,
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "90451",
+      "diagnosis_code": "I84.8",
+      "surgery_code": "49.46",
+      "mapped_diag_code": "I84.8",
+      "mapped_surgery_code": "49.46",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "90325",
+      "diagnosis_code": "O80.0",
+      "surgery_code": "75.6902",
+      "mapped_diag_code": "O80.0",
+      "mapped_surgery_code": "75.6902",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "90420",
+      "diagnosis_code": "T92.3",
+      "surgery_code": null,
+      "mapped_diag_code": "T92.3",
+      "mapped_surgery_code": null,
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "ICD3可命中但未完成入组",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "90390",
+      "diagnosis_code": "O45.9",
+      "surgery_code": null,
+      "mapped_diag_code": "O45.9",
+      "mapped_surgery_code": null,
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "91072",
+      "diagnosis_code": "O80.0",
+      "surgery_code": "75.6902",
+      "mapped_diag_code": "O80.0",
+      "mapped_surgery_code": "75.6902",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "90742",
+      "diagnosis_code": "O80.0",
+      "surgery_code": "71.7102",
+      "mapped_diag_code": "O80.0",
+      "mapped_surgery_code": "71.7102",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "90388",
+      "diagnosis_code": "I84.8",
+      "surgery_code": "49.46",
+      "mapped_diag_code": "I84.8",
+      "mapped_surgery_code": "49.46",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "90897",
+      "diagnosis_code": "I84.8",
+      "surgery_code": "49.46",
+      "mapped_diag_code": "I84.8",
+      "mapped_surgery_code": "49.46",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "90458",
+      "diagnosis_code": "S90.9",
+      "surgery_code": null,
+      "mapped_diag_code": "S90.9",
+      "mapped_surgery_code": null,
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "90824",
+      "diagnosis_code": "I84.8",
+      "surgery_code": "49.46",
+      "mapped_diag_code": "I84.8",
+      "mapped_surgery_code": "49.46",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "90861",
+      "diagnosis_code": "I84.1",
+      "surgery_code": "49.4900X002",
+      "mapped_diag_code": "I84.1",
+      "mapped_surgery_code": "49.4900X002",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "90818",
+      "diagnosis_code": "O80.0",
+      "surgery_code": "75.6902",
+      "mapped_diag_code": "O80.0",
+      "mapped_surgery_code": "75.6902",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "90898",
+      "diagnosis_code": "I84.8",
+      "surgery_code": "49.46",
+      "mapped_diag_code": "I84.8",
+      "mapped_surgery_code": "49.46",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "90939",
+      "diagnosis_code": "S31.0",
+      "surgery_code": null,
+      "mapped_diag_code": "S31.0",
+      "mapped_surgery_code": null,
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "ICD3可命中但未完成入组",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:43"
+    },
+    {
+      "patient_id": "83623",
+      "diagnosis_code": "I69.1",
+      "surgery_code": null,
+      "mapped_diag_code": "I69.1",
+      "mapped_surgery_code": null,
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "ICD3可命中但未完成入组",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "83630",
+      "diagnosis_code": "I84.8",
+      "surgery_code": "49.46",
+      "mapped_diag_code": "I84.8",
+      "mapped_surgery_code": "49.46",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "83647",
+      "diagnosis_code": "O02.0",
+      "surgery_code": "69.5202",
+      "mapped_diag_code": "O02.0",
+      "mapped_surgery_code": "69.5202",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "83654",
+      "diagnosis_code": "I84.2",
+      "surgery_code": "49.46",
+      "mapped_diag_code": "I84.2",
+      "mapped_surgery_code": "49.46",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "83658",
+      "diagnosis_code": "O33.9",
+      "surgery_code": "74.1X01",
+      "mapped_diag_code": "O33.9",
+      "mapped_surgery_code": "74.1X01",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "83698",
+      "diagnosis_code": "O33.9",
+      "surgery_code": "74.1X01",
+      "mapped_diag_code": "O33.9",
+      "mapped_surgery_code": "74.1X01",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "83709",
+      "diagnosis_code": "Z45.8",
+      "surgery_code": "97.8700X001",
+      "mapped_diag_code": "Z45.8",
+      "mapped_surgery_code": "97.8700X001",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "ICD3可命中但未完成入组",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "83719",
+      "diagnosis_code": "I69.8",
+      "surgery_code": null,
+      "mapped_diag_code": "I69.8",
+      "mapped_surgery_code": null,
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "ICD3可命中但未完成入组",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "83749",
+      "diagnosis_code": "I84.8",
+      "surgery_code": "49.46",
+      "mapped_diag_code": "I84.8",
+      "mapped_surgery_code": "49.46",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "83776",
+      "diagnosis_code": "I84.2",
+      "surgery_code": "49.46",
+      "mapped_diag_code": "I84.2",
+      "mapped_surgery_code": "49.46",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "83798",
+      "diagnosis_code": "O08.8",
+      "surgery_code": "68.1200X001",
+      "mapped_diag_code": "O08.8",
+      "mapped_surgery_code": "68.1200X001",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "主诊断已命中但操作未命中",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "83801",
+      "diagnosis_code": "F43.1",
+      "surgery_code": null,
+      "mapped_diag_code": "F43.1",
+      "mapped_surgery_code": null,
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "83807",
+      "diagnosis_code": "O04.9",
+      "surgery_code": "69.0200X003",
+      "mapped_diag_code": "O04.9",
+      "mapped_surgery_code": "69.0200X003",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "83828",
+      "diagnosis_code": "O80.0",
+      "surgery_code": "75.6902",
+      "mapped_diag_code": "O80.0",
+      "mapped_surgery_code": "75.6902",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "83831",
+      "diagnosis_code": "S87.8",
+      "surgery_code": null,
+      "mapped_diag_code": "S87.8",
+      "mapped_surgery_code": null,
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "83833",
+      "diagnosis_code": "O80.0",
+      "surgery_code": "73.0900X001",
+      "mapped_diag_code": "O80.0",
+      "mapped_surgery_code": "73.0900X001",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "83858",
+      "diagnosis_code": "I84.2",
+      "surgery_code": "96.3700X004",
+      "mapped_diag_code": "I84.2",
+      "mapped_surgery_code": "17.98611",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "83878",
+      "diagnosis_code": "I84.2",
+      "surgery_code": "49.46",
+      "mapped_diag_code": "I84.2",
+      "mapped_surgery_code": "49.46",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "83892",
+      "diagnosis_code": "O80.0",
+      "surgery_code": "73.0900X001",
+      "mapped_diag_code": "O80.0",
+      "mapped_surgery_code": "73.0900X001",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "83919",
+      "diagnosis_code": "S66.3",
+      "surgery_code": "82.8600X011",
+      "mapped_diag_code": "S66.3",
+      "mapped_surgery_code": "82.8600X011",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "主诊断已命中但操作未命中",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "83923",
+      "diagnosis_code": "E80.6",
+      "surgery_code": null,
+      "mapped_diag_code": "E80.6",
+      "mapped_surgery_code": null,
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "84034",
+      "diagnosis_code": "Z31.0",
+      "surgery_code": "3.7906",
+      "mapped_diag_code": "Z31.0",
+      "mapped_surgery_code": "3.7906",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "84049",
+      "diagnosis_code": "O80.0",
+      "surgery_code": "75.6902",
+      "mapped_diag_code": "O80.0",
+      "mapped_surgery_code": "75.6902",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "84111",
+      "diagnosis_code": "I84.9",
+      "surgery_code": "49.46",
+      "mapped_diag_code": "I84.9",
+      "mapped_surgery_code": "49.46",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "84151",
+      "diagnosis_code": "S66.3",
+      "surgery_code": "82.4500X012",
+      "mapped_diag_code": "S66.3",
+      "mapped_surgery_code": "82.4500X012",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "主诊断已命中但操作未命中",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "84171",
+      "diagnosis_code": "I84.8",
+      "surgery_code": "49.46",
+      "mapped_diag_code": "I84.8",
+      "mapped_surgery_code": "49.46",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "84231",
+      "diagnosis_code": "O80.0",
+      "surgery_code": "75.6902",
+      "mapped_diag_code": "O80.0",
+      "mapped_surgery_code": "75.6902",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "84318",
+      "diagnosis_code": "I84.1",
+      "surgery_code": "49.46",
+      "mapped_diag_code": "I84.1",
+      "mapped_surgery_code": "49.46",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "84341",
+      "diagnosis_code": "O80.0",
+      "surgery_code": "73.01",
+      "mapped_diag_code": "O80.0",
+      "mapped_surgery_code": "73.01",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "84368",
+      "diagnosis_code": "O04.9",
+      "surgery_code": "69.0200X003",
+      "mapped_diag_code": "O04.9",
+      "mapped_surgery_code": "69.0200X003",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "84411",
+      "diagnosis_code": "O04.4",
+      "surgery_code": null,
+      "mapped_diag_code": "O04.4",
+      "mapped_surgery_code": null,
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "84420",
+      "diagnosis_code": "O33.9",
+      "surgery_code": "74.1X01",
+      "mapped_diag_code": "O33.9",
+      "mapped_surgery_code": "74.1X01",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    },
+    {
+      "patient_id": "84461",
+      "diagnosis_code": "O33.9",
+      "surgery_code": "74.1X01",
+      "mapped_diag_code": "O33.9",
+      "mapped_surgery_code": "74.1X01",
+      "dip_code": null,
+      "dip_weight_score": null,
+      "version": "2025",
+      "status": "UNMAPPED",
+      "fail_reason": "未命中DIP目录组合",
+      "source": "AUTO",
+      "updated_at": "2026-03-03T15:51:42"
+    }
+  ]
+}

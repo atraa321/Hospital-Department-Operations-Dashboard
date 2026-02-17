@@ -1,0 +1,45 @@
+# Neuro Raw Extract 2025
+
+case_count=644, total_cost=2816557.61, avg_cost=4373.54, avg_los=9.65, avg_drug_ratio=27.85
+hospital_case_count=7141, hospital_total_cost=38942033.48
+
+## monthly
+{'month': '2025-01', 'case_count': 63, 'total_cost': 244822.88, 'avg_cost': 3886.07746, 'avg_los': 7.6825, 'avg_drug_ratio': 28.8000603175}
+{'month': '2025-02', 'case_count': 38, 'total_cost': 173888.6, 'avg_cost': 4576.015789, 'avg_los': 10.0789, 'avg_drug_ratio': 29.9179789474}
+{'month': '2025-03', 'case_count': 51, 'total_cost': 211770.62, 'avg_cost': 4152.365098, 'avg_los': 9.6667, 'avg_drug_ratio': 30.9174509804}
+{'month': '2025-04', 'case_count': 61, 'total_cost': 293788.5, 'avg_cost': 4816.204918, 'avg_los': 10.8361, 'avg_drug_ratio': 29.7154803279}
+{'month': '2025-05', 'case_count': 60, 'total_cost': 225568.58, 'avg_cost': 3759.476333, 'avg_los': 8.9167, 'avg_drug_ratio': 25.8593216667}
+{'month': '2025-06', 'case_count': 52, 'total_cost': 228789.45, 'avg_cost': 4399.797115, 'avg_los': 9.4038, 'avg_drug_ratio': 29.4621346154}
+{'month': '2025-07', 'case_count': 44, 'total_cost': 178150.65, 'avg_cost': 4048.878409, 'avg_los': 9.1591, 'avg_drug_ratio': 27.097725}
+{'month': '2025-08', 'case_count': 55, 'total_cost': 252522.9, 'avg_cost': 4591.325455, 'avg_los': 11.1091, 'avg_drug_ratio': 29.1480872727}
+{'month': '2025-09', 'case_count': 45, 'total_cost': 188646.21, 'avg_cost': 4192.138, 'avg_los': 9.9111, 'avg_drug_ratio': 26.4309622222}
+{'month': '2025-10', 'case_count': 63, 'total_cost': 266163.8, 'avg_cost': 4224.822222, 'avg_los': 8.8413, 'avg_drug_ratio': 27.5358507937}
+{'month': '2025-11', 'case_count': 55, 'total_cost': 314014.56, 'avg_cost': 5709.355636, 'avg_los': 11.3455, 'avg_drug_ratio': 26.6656727273}
+{'month': '2025-12', 'case_count': 57, 'total_cost': 238430.86, 'avg_cost': 4182.997544, 'avg_los': 9.2281, 'avg_drug_ratio': 23.2379333333}
+
+## top_case
+{'diag_code': 'I63.900', 'diag_name': '脑梗死', 'case_count': 83, 'total_cost': 376448.74, 'avg_cost': 4535.526988, 'avg_los': 9.7952, 'avg_drug_ratio': 32.3492180723, 'cv_cost': 64.61621199121797}
+{'diag_code': 'I63.300', 'diag_name': '大脑动脉血栓形成引起的脑梗死', 'case_count': 53, 'total_cost': 335283.92, 'avg_cost': 6326.111698, 'avg_los': 12.1887, 'avg_drug_ratio': 41.2834113208, 'cv_cost': 36.30232844448729}
+{'diag_code': 'I63.500', 'diag_name': '大脑动脉的闭塞或狭窄引起的脑梗死', 'case_count': 40, 'total_cost': 154693.86, 'avg_cost': 3867.3465, 'avg_los': 10.575, 'avg_drug_ratio': 31.521045, 'cv_cost': 12.430608341361797}
+{'diag_code': 'I63.100', 'diag_name': '入脑前动脉栓塞引起的脑梗死', 'case_count': 32, 'total_cost': 214346.19, 'avg_cost': 6698.318438, 'avg_los': 13.2188, 'avg_drug_ratio': 39.403084375, 'cv_cost': 30.419827228030428}
+{'diag_code': 'R42.x00x004', 'diag_name': '头晕', 'case_count': 25, 'total_cost': 57713.84, 'avg_cost': 2308.5536, 'avg_los': 5.96, 'avg_drug_ratio': 17.245428, 'cv_cost': 50.88743926324689}
+{'diag_code': 'I63.000', 'diag_name': '入脑前动脉血栓形成引起的脑梗死', 'case_count': 24, 'total_cost': 166220.73, 'avg_cost': 6925.86375, 'avg_los': 12.0, 'avg_drug_ratio': 39.6288416667, 'cv_cost': 46.46349398750803}
+{'diag_code': 'H81.100x001', 'diag_name': '良性阵发性位置性眩晕', 'case_count': 23, 'total_cost': 41268.62, 'avg_cost': 1794.287826, 'avg_los': 5.913, 'avg_drug_ratio': 18.9517869565, 'cv_cost': 47.115306348372826}
+{'diag_code': 'I64.x01', 'diag_name': '脑血管意外', 'case_count': 15, 'total_cost': 56048.44, 'avg_cost': 3736.562667, 'avg_los': 9.8667, 'avg_drug_ratio': 26.2785133333, 'cv_cost': 38.1943151041669}
+{'diag_code': 'H81.100', 'diag_name': '良性阵发性眩晕', 'case_count': 13, 'total_cost': 24466.59, 'avg_cost': 1882.045385, 'avg_los': 5.5385, 'avg_drug_ratio': 19.1142769231, 'cv_cost': 19.87454076180416}
+{'diag_code': 'G45.900x001', 'diag_name': '短暂性脑缺血发作', 'case_count': 11, 'total_cost': 43718.56, 'avg_cost': 3974.414545, 'avg_los': 7.3636, 'avg_drug_ratio': 19.6470818182, 'cv_cost': 73.40889805713842}
+
+## top_cost
+{'diag_code': 'I63.900', 'diag_name': '脑梗死', 'case_count': 83, 'total_cost': 376448.74, 'avg_cost': 4535.526988, 'avg_los': 9.7952, 'avg_drug_ratio': 32.3492180723, 'cv_cost': 64.61621199121797}
+{'diag_code': 'I63.300', 'diag_name': '大脑动脉血栓形成引起的脑梗死', 'case_count': 53, 'total_cost': 335283.92, 'avg_cost': 6326.111698, 'avg_los': 12.1887, 'avg_drug_ratio': 41.2834113208, 'cv_cost': 36.30232844448729}
+{'diag_code': 'I63.100', 'diag_name': '入脑前动脉栓塞引起的脑梗死', 'case_count': 32, 'total_cost': 214346.19, 'avg_cost': 6698.318438, 'avg_los': 13.2188, 'avg_drug_ratio': 39.403084375, 'cv_cost': 30.419827228030428}
+{'diag_code': 'I63.000', 'diag_name': '入脑前动脉血栓形成引起的脑梗死', 'case_count': 24, 'total_cost': 166220.73, 'avg_cost': 6925.86375, 'avg_los': 12.0, 'avg_drug_ratio': 39.6288416667, 'cv_cost': 46.46349398750803}
+{'diag_code': 'I63.500', 'diag_name': '大脑动脉的闭塞或狭窄引起的脑梗死', 'case_count': 40, 'total_cost': 154693.86, 'avg_cost': 3867.3465, 'avg_los': 10.575, 'avg_drug_ratio': 31.521045, 'cv_cost': 12.430608341361797}
+{'diag_code': 'J96.900x011', 'diag_name': '呼吸衰竭，未特指', 'case_count': 7, 'total_cost': 66302.1, 'avg_cost': 9471.728571, 'avg_los': 10.1429, 'avg_drug_ratio': 33.4777857143, 'cv_cost': 60.49489939023797}
+{'diag_code': 'R42.x00x004', 'diag_name': '头晕', 'case_count': 25, 'total_cost': 57713.84, 'avg_cost': 2308.5536, 'avg_los': 5.96, 'avg_drug_ratio': 17.245428, 'cv_cost': 50.88743926324689}
+{'diag_code': 'I64.x01', 'diag_name': '脑血管意外', 'case_count': 15, 'total_cost': 56048.44, 'avg_cost': 3736.562667, 'avg_los': 9.8667, 'avg_drug_ratio': 26.2785133333, 'cv_cost': 38.1943151041669}
+{'diag_code': 'G45.900x001', 'diag_name': '短暂性脑缺血发作', 'case_count': 11, 'total_cost': 43718.56, 'avg_cost': 3974.414545, 'avg_los': 7.3636, 'avg_drug_ratio': 19.6470818182, 'cv_cost': 73.40889805713842}
+{'diag_code': 'I63.200', 'diag_name': '入脑前动脉的闭塞或狭窄引起的脑梗死', 'case_count': 9, 'total_cost': 42082.45, 'avg_cost': 4675.827778, 'avg_los': 9.5556, 'avg_drug_ratio': 24.8101777778, 'cv_cost': 32.74496507747221}
+
+## dip_status
+('MAPPED', 56, 8.695652173913043)
