@@ -1,7 +1,42 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vite.dev/config/
+function manualChunks(id: string) {
+  if (!id.includes('node_modules')) {
+    return undefined;
+  }
+
+  if (id.includes('zrender')) {
+    return 'vendor-zrender';
+  }
+
+  if (id.includes('echarts-for-react')) {
+    return 'vendor-echarts-react';
+  }
+
+  if (id.includes('echarts')) {
+    return 'vendor-echarts';
+  }
+
+  if (id.includes('react-router') || id.includes('@remix-run')) {
+    return 'vendor-router';
+  }
+
+  if (id.includes('@tanstack/react-query') || id.includes('axios')) {
+    return 'vendor-data';
+  }
+
+  if (id.includes('framer-motion')) {
+    return 'vendor-motion';
+  }
+
+  if (id.includes('react') || id.includes('scheduler')) {
+    return 'vendor-react';
+  }
+
+  return 'vendor-misc';
+}
+
 export default defineConfig({
   plugins: [react()],
   server: {
@@ -13,4 +48,11 @@ export default defineConfig({
       },
     },
   },
-})
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks,
+      },
+    },
+  },
+});

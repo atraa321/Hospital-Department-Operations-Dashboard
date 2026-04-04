@@ -26,8 +26,10 @@ from app.services.director_service import (
 
 router = APIRouter(prefix="/director/topic", tags=["director"])
 
+# Deprecated: retained for historical report generation and staged migration.
+# New department-facing analysis has moved to /operations/departments/{dept_name}.
 
-@router.get("", response_model=DirectorTopicOverviewOut)
+@router.get("", response_model=DirectorTopicOverviewOut, deprecated=True)
 def director_topic_overview(
     dept_name: str | None = None,
     date_from: date | None = None,
@@ -60,7 +62,7 @@ def director_topic_overview(
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
-@router.get("/{diagnosis_code}", response_model=DirectorTopicDetailOut)
+@router.get("/{diagnosis_code}", response_model=DirectorTopicDetailOut, deprecated=True)
 def director_topic_detail(
     diagnosis_code: str,
     dept_name: str | None = None,
@@ -97,7 +99,7 @@ def director_topic_detail(
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
-@router.post("/{diagnosis_code}/export/pdf")
+@router.post("/{diagnosis_code}/export/pdf", deprecated=True)
 def director_topic_export_pdf(
     diagnosis_code: str,
     payload: DirectorPdfExportIn,

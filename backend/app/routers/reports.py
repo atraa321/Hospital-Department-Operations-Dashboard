@@ -13,6 +13,7 @@ from app.core.security import (
     ROLE_VIEWER,
     CurrentUser,
     require_roles,
+    resolve_dept_scope,
 )
 from app.db.session import get_db
 from app.schemas.reports import ExecutiveBriefOut, MonthlyReportOut
@@ -69,8 +70,9 @@ def case_report_csv(
         )
     ),
 ):
+    scoped_dept = resolve_dept_scope(None, current_user)
     masked = current_user.role not in {ROLE_ADMIN}
-    content = export_case_report_csv(db=db, masked=masked)
+    content = export_case_report_csv(db=db, masked=masked, dept_name=scoped_dept)
     filename = f"case_report_{datetime.now().strftime('%Y%m%d%H%M%S')}.csv"
     return StreamingResponse(
         iter([content]),

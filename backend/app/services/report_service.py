@@ -88,18 +88,20 @@ def get_executive_brief(db: Session) -> dict:
     }
 
 
-def export_case_report_csv(db: Session, masked: bool = True) -> str:
-    rows = db.execute(
-        select(
-            CaseInfo.patient_id,
-            CaseInfo.patient_name,
-            CaseInfo.dept_name,
-            CaseInfo.main_diagnosis_code,
-            CaseInfo.main_diagnosis_name,
-            CaseInfo.total_cost,
-            CaseInfo.discharge_date,
-        ).order_by(CaseInfo.discharge_date.desc()).limit(5000)
-    ).all()
+def export_case_report_csv(db: Session, masked: bool = True, dept_name: str | None = None) -> str:
+    stmt = select(
+        CaseInfo.patient_id,
+        CaseInfo.patient_name,
+        CaseInfo.dept_name,
+        CaseInfo.main_diagnosis_code,
+        CaseInfo.main_diagnosis_name,
+        CaseInfo.total_cost,
+        CaseInfo.discharge_date,
+    )
+    if dept_name:
+        stmt = stmt.where(CaseInfo.dept_name == dept_name)
+    stmt = stmt.order_by(CaseInfo.discharge_date.desc()).limit(5000)
+    rows = db.execute(stmt).all()
 
     output = io.StringIO()
     writer = csv.writer(output)

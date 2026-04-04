@@ -1,432 +1,190 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import ReactECharts from 'echarts-for-react';
+import { useEffect, useMemo, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { EChart } from '../components/EChart';
 import {
-  exportDirectorTopicPdf,
-  fetchDipDepartments,
-  fetchDirectorTopicDetail,
-  fetchDirectorTopicOverview,
+  fetchDepartmentOperationDetail,
+  fetchDepartmentRankings,
+  type CurrentUser,
 } from '../lib/api';
 
-type ChartRefMap = Record<string, ReactECharts | null>;
-type DirectorTopicSavedFilter = {
-  pointValueInput: string;
-};
-
-const DIRECTOR_TOPIC_FILTER_KEY = 'director_topic_filters_v1';
-const DIRECTOR_POINT_DEFAULT = '5.5';
-const SEVERITY_COLORS = {
-  RED: '#e53935',
-  ORANGE: '#fb8c00',
-  YELLOW: '#fdd835',
-} as const;
-
-function parseNumberInput(input: string): number | undefined {
-  if (!input.trim()) return undefined;
-  const value = Number(input);
-  if (!Number.isFinite(value) || value <= 0) return undefined;
-  return value;
+interface DirectorTopicPageProps {
+  currentUser?: CurrentUser;
 }
 
-function loadDirectorTopicSavedFilter(): DirectorTopicSavedFilter {
-  if (typeof window === 'undefined') {
-    return { pointValueInput: DIRECTOR_POINT_DEFAULT };
-  }
-  const raw = window.localStorage.getItem(DIRECTOR_TOPIC_FILTER_KEY);
-  if (!raw) {
-    return { pointValueInput: DIRECTOR_POINT_DEFAULT };
-  }
-  try {
-    const parsed = JSON.parse(raw) as Partial<DirectorTopicSavedFilter>;
-    const pointValueInput = String(parsed.pointValueInput ?? '').trim();
-    const point = parseNumberInput(pointValueInput);
-    if (!point) {
-      return { pointValueInput: DIRECTOR_POINT_DEFAULT };
-    }
-    return { pointValueInput };
-  } catch {
-    return { pointValueInput: DIRECTOR_POINT_DEFAULT };
-  }
-}
-
-function saveDirectorTopicSavedFilter(payload: DirectorTopicSavedFilter) {
-  if (typeof window === 'undefined') return;
-  window.localStorage.setItem(DIRECTOR_TOPIC_FILTER_KEY, JSON.stringify(payload));
-}
-
-function downloadDataUrl(name: string, dataUrl: string) {
-  const link = document.createElement('a');
-  link.href = dataUrl;
-  link.download = `${name}_${Date.now()}.png`;
-  link.click();
-}
-
-export function DirectorTopicPage() {
-  const savedFilter = useMemo(loadDirectorTopicSavedFilter, []);
-  const [deptInput, setDeptInput] = useState('');
+export function DirectorTopicPage({ currentUser }: DirectorTopicPageProps) {
+  const isDirector = currentUser?.role === 'DIRECTOR';
+  const defaultDept = isDirector ? currentUser?.dept_name ?? '' : '';
+  const [deptInput, setDeptInput] = useState(defaultDept);
+  const [deptName, setDeptName] = useState(defaultDept);
   const [dateFromInput, setDateFromInput] = useState('');
   const [dateToInput, setDateToInput] = useState('');
-  const [pointValueInput, setPointValueInput] = useState(savedFilter.pointValueInput);
-  const [deptName, setDeptName] = useState('');
   const [dateFrom, setDateFrom] = useState('');
   const [dateTo, setDateTo] = useState('');
-  const [pointValue, setPointValue] = useState<number | undefined>(parseNumberInput(savedFilter.pointValueInput));
-  const [selectedDiagnosis, setSelectedDiagnosis] = useState('');
-  const [exportChartKey, setExportChartKey] = useState('disease-rank');
   const [errorText, setErrorText] = useState('');
-  const chartRefs = useRef<ChartRefMap>({});
-
-  const overviewQuery = useQuery({
-    queryKey: ['director-topic-overview', deptName, dateFrom, dateTo, pointValue],
-    queryFn: () =>
-      fetchDirectorTopicOverview({
-        deptName: deptName || undefined,
-        dateFrom: dateFrom || undefined,
-        dateTo: dateTo || undefined,
-        topN: 5,
-        pointValue,
-      }),
-  });
-  const deptQuery = useQuery({
-    queryKey: ['dip-departments'],
-    queryFn: fetchDipDepartments,
-  });
 
   useEffect(() => {
-    const first = overviewQuery.data?.diseases?.[0]?.diagnosis_code || '';
-    if (!first) {
-      setSelectedDiagnosis('');
-      return;
+    if (defaultDept) {
+      setDeptInput(defaultDept);
+      setDeptName(defaultDept);
     }
-    const exists = overviewQuery.data?.diseases?.some((item) => item.diagnosis_code === selectedDiagnosis);
-    if (!selectedDiagnosis || !exists) {
-      setSelectedDiagnosis(first);
-    }
-  }, [overviewQuery.data?.diseases, selectedDiagnosis]);
+  }, [defaultDept]);
+
+  const rankingsQuery = useQuery({
+    queryKey: ['department-rankings-lite', dateFrom, dateTo],
+    queryFn: () => fetchDepartmentRankings({ dateFrom: dateFrom || undefined, dateTo: dateTo || undefined, limit: 50 }),
+  });
 
   const detailQuery = useQuery({
-    queryKey: ['director-topic-detail', selectedDiagnosis, deptName, dateFrom, dateTo, pointValue],
+    queryKey: ['department-operation-detail', deptName, dateFrom, dateTo],
     queryFn: () =>
-      fetchDirectorTopicDetail({
-        diagnosisCode: selectedDiagnosis,
-        deptName: deptName || undefined,
+      fetchDepartmentOperationDetail({
+        deptName,
         dateFrom: dateFrom || undefined,
         dateTo: dateTo || undefined,
-        pointValue,
-        doctorMinCases: 5,
-        detailTopN: 20,
       }),
-    enabled: Boolean(selectedDiagnosis),
+    enabled: Boolean(deptName),
   });
 
-  const pdfMutation = useMutation({
-    mutationFn: async () => {
-      if (!selectedDiagnosis) return;
-      const chartPayload = chartCatalog
-        .map((item, idx) => {
-          const chart = chartRefs.current[item.key]?.getEchartsInstance?.();
-          if (!chart) return null;
-          const imageBase64 = chart.getDataURL({ type: 'png', pixelRatio: 2, backgroundColor: '#ffffff' });
-          return {
-            chart_key: item.key,
-            title: item.title,
-            image_base64: imageBase64,
-            order_no: idx + 1,
-          };
-        })
-        .filter((item): item is NonNullable<typeof item> => Boolean(item));
+  const deptOptions = useMemo(() => rankingsQuery.data?.map((item) => item.dept_name) ?? [], [rankingsQuery.data]);
 
-      if (!chartPayload.length) {
-        throw new Error('当前没有可导出的图表。');
-      }
-
-      await exportDirectorTopicPdf({
-        diagnosisCode: selectedDiagnosis,
-        deptName: deptName || undefined,
-        dateFrom: dateFrom || undefined,
-        dateTo: dateTo || undefined,
-        pointValue,
-        doctorMinCases: 5,
-        charts: chartPayload,
-      });
-    },
-    onError: (error: unknown) => {
-      if (error instanceof Error) {
-        setErrorText(error.message);
-      } else {
-        setErrorText('PDF导出失败。');
-      }
-    },
-  });
-
-  const chartCatalog = [
-    { key: 'disease-rank', title: 'TOP5病种排名' },
-    { key: 'overview-trend', title: '病种趋势监控' },
-    { key: 'cost-structure', title: '费用结构环图' },
-    { key: 'cost-ratio', title: '费用占比柱图' },
-    { key: 'dip-waterfall', title: 'DIP模拟收支' },
-    { key: 'dip-gauge', title: 'DIP入组率' },
-    { key: 'doctor-bar', title: '医师次均费用对比' },
-    { key: 'doctor-scatter', title: '医师住院日-结余散点' },
-    { key: 'anomaly-category', title: '异常规则分布' },
-    { key: 'anomaly-severity', title: '异常级别构成' },
-    { key: 'detail-pareto', title: '明细TOP帕累托' },
-  ];
-
-  const onApplyFilter = () => {
-    const point = parseNumberInput(pointValueInput);
-    if (pointValueInput.trim() && point === undefined) {
-      setErrorText('DIP点值需为大于0的数字。');
-      return;
-    }
-    setDeptName(deptInput.trim());
-    setDateFrom(dateFromInput.trim());
-    setDateTo(dateToInput.trim());
-    setPointValue(point);
-    if (point !== undefined) {
-      saveDirectorTopicSavedFilter({ pointValueInput: pointValueInput.trim() });
-    }
-    setErrorText('');
-  };
-
-  const onExportPng = () => {
-    const chart = chartRefs.current[exportChartKey]?.getEchartsInstance?.();
-    if (!chart) {
-      setErrorText('请先等待图表加载完成后再导出PNG。');
-      return;
-    }
-    const url = chart.getDataURL({ type: 'png', pixelRatio: 2, backgroundColor: '#ffffff' });
-    downloadDataUrl(exportChartKey, url);
-    setErrorText('');
-  };
-
-  const registerChartRef =
-    (key: string) =>
-    (ref: ReactECharts | null): void => {
-      chartRefs.current[key] = ref;
-    };
-
-  const diseases = overviewQuery.data?.diseases ?? [];
-  const trend = overviewQuery.data?.monthly_trend ?? [];
-  const deptOptions = useMemo(() => {
-    const options = deptQuery.data?.items ?? [];
-    if (deptInput && !options.includes(deptInput)) {
-      return [deptInput, ...options];
-    }
-    return options;
-  }, [deptInput, deptQuery.data?.items]);
-  const detail = detailQuery.data;
-  const doctors = detail?.doctor_compare ?? [];
-  const detailItems = detail?.detail_top_items ?? [];
-  const anomalyCategories = detail?.anomaly_categories ?? [];
-  const anomalySeverity = detail?.anomaly_severity ?? [];
-
-  const diseaseRankOption = useMemo(
+  const trendOption = useMemo(
     () => ({
+      color: ['#1b7f87', '#f08a48', '#cb5c54'],
       tooltip: { trigger: 'axis' },
-      grid: { left: 120, right: 20, top: 20, bottom: 20 },
-      xAxis: { type: 'value' },
-      yAxis: { type: 'category', data: diseases.map((d) => d.diagnosis_code) },
-      series: [{ type: 'bar', data: diseases.map((d) => d.case_count), itemStyle: { color: '#1f7f89' } }],
-    }),
-    [diseases],
-  );
-
-  const overviewTrendOption = useMemo(
-    () => ({
-      tooltip: { trigger: 'axis' },
-      legend: { data: ['总费用', 'DIP模拟结余'] },
-      grid: { left: 40, right: 20, top: 40, bottom: 30 },
-      xAxis: { type: 'category', data: trend.map((x) => x.period) },
+      legend: { data: ['出院人次', '平均住院日', '异常命中'] },
+      grid: { left: 40, right: 20, top: 36, bottom: 24 },
+      xAxis: { type: 'category', data: (detailQuery.data?.monthly_trend ?? []).map((item) => item.period) },
       yAxis: [{ type: 'value' }, { type: 'value' }],
       series: [
-        { name: '总费用', type: 'line', smooth: true, data: trend.map((x) => x.total_cost) },
-        { name: 'DIP模拟结余', type: 'bar', yAxisIndex: 1, data: trend.map((x) => x.dip_sim_balance) },
+        {
+          name: '出院人次',
+          type: 'bar',
+          data: (detailQuery.data?.monthly_trend ?? []).map((item) => item.case_count),
+        },
+        {
+          name: '平均住院日',
+          type: 'line',
+          smooth: true,
+          yAxisIndex: 1,
+          data: (detailQuery.data?.monthly_trend ?? []).map((item) => item.avg_los),
+        },
+        {
+          name: '异常命中',
+          type: 'line',
+          smooth: true,
+          data: (detailQuery.data?.monthly_trend ?? []).map((item) => item.issue_count),
+        },
       ],
     }),
-    [trend],
+    [detailQuery.data?.monthly_trend],
   );
 
-  const costStructureOption = useMemo(
+  const costOption = useMemo(
     () => ({
       tooltip: { trigger: 'item' },
       series: [
         {
           type: 'pie',
-          radius: ['45%', '75%'],
-          data: (detail?.cost_structure ?? []).map((x) => ({ name: x.name, value: x.value })),
+          radius: ['42%', '72%'],
+          data: (detailQuery.data?.cost_structure ?? []).map((item) => ({ name: item.name, value: item.value })),
         },
       ],
     }),
-    [detail?.cost_structure],
+    [detailQuery.data?.cost_structure],
   );
 
-  const costRatioOption = useMemo(
+  const doctorOption = useMemo(
     () => ({
+      color: ['#1b7f87', '#ef7c49'],
       tooltip: { trigger: 'axis' },
-      grid: { left: 40, right: 20, top: 20, bottom: 40 },
-      xAxis: { type: 'category', data: (detail?.cost_structure ?? []).map((x) => x.name), axisLabel: { rotate: 20 } },
-      yAxis: { type: 'value' },
-      series: [{ type: 'bar', data: (detail?.cost_structure ?? []).map((x) => x.ratio), itemStyle: { color: '#2a8a95' } }],
-    }),
-    [detail?.cost_structure],
-  );
-
-  const dipWaterfallOption = useMemo(
-    () => ({
-      tooltip: { trigger: 'item' },
-      xAxis: { type: 'category', data: ['模拟收入', '实际费用', '模拟结余'] },
-      yAxis: { type: 'value' },
-      series: [
-        {
-          type: 'bar',
-          data: [
-            detail?.dip_summary?.dip_sim_income ?? 0,
-            -(detail?.total_cost ?? 0),
-            detail?.dip_summary?.dip_sim_balance ?? 0,
-          ],
-          itemStyle: {
-            color: (p: { dataIndex: number }) => (p.dataIndex === 1 ? '#d05b5b' : '#1d8a70'),
-          },
-        },
-      ],
-    }),
-    [detail?.dip_summary?.dip_sim_balance, detail?.dip_summary?.dip_sim_income, detail?.total_cost],
-  );
-
-  const dipGaugeOption = useMemo(
-    () => ({
-      series: [
-        {
-          type: 'gauge',
-          min: 0,
-          max: 100,
-          detail: { formatter: '{value}%' },
-          data: [{ value: detail?.dip_summary?.grouped_rate ?? 0, name: '入组率' }],
-        },
-      ],
-    }),
-    [detail?.dip_summary?.grouped_rate],
-  );
-
-  const doctorBarOption = useMemo(
-    () => ({
-      tooltip: { trigger: 'axis' },
-      grid: { left: 140, right: 20, top: 20, bottom: 20 },
+      legend: { data: ['次均费用', '异常命中'] },
+      grid: { left: 120, right: 20, top: 36, bottom: 20 },
       xAxis: { type: 'value' },
-      yAxis: { type: 'category', data: doctors.map((d) => d.doctor_name) },
-      series: [{ type: 'bar', data: doctors.map((d) => d.avg_total_cost), itemStyle: { color: '#f7934c' } }],
-    }),
-    [doctors],
-  );
-
-  const doctorScatterOption = useMemo(
-    () => ({
-      tooltip: {
-        formatter: (params: { data: [number, number, number, string] }) =>
-          `${params.data[3]}<br/>平均住院日: ${params.data[0]}<br/>DIP模拟结余: ${params.data[1]}<br/>病例数: ${params.data[2]}`,
+      yAxis: {
+        type: 'category',
+        data: (detailQuery.data?.doctor_compare ?? []).slice(0, 8).map((item) => item.doctor_name),
       },
-      xAxis: { type: 'value', name: '平均住院日' },
-      yAxis: { type: 'value', name: 'DIP模拟结余' },
       series: [
         {
-          type: 'scatter',
-          symbolSize: (value: [number, number, number, string]) => Math.max(10, Math.min(40, value[2] * 2)),
-          data: doctors.map((d) => [d.avg_los, d.dip_sim_balance, d.case_count, d.doctor_name]),
-          itemStyle: { color: '#3b78be' },
+          name: '次均费用',
+          type: 'bar',
+          data: (detailQuery.data?.doctor_compare ?? []).slice(0, 8).map((item) => item.avg_total_cost),
+        },
+        {
+          name: '异常命中',
+          type: 'bar',
+          data: (detailQuery.data?.doctor_compare ?? []).slice(0, 8).map((item) => item.issue_count),
         },
       ],
     }),
-    [doctors],
+    [detailQuery.data?.doctor_compare],
   );
 
-  const anomalyCategoryOption = useMemo(
+  const anomalyOption = useMemo(
     () => ({
-      color: [SEVERITY_COLORS.RED, SEVERITY_COLORS.ORANGE, SEVERITY_COLORS.YELLOW],
+      color: ['#cb5c54', '#f08a48', '#d8ba4d'],
       tooltip: { trigger: 'axis' },
       legend: { data: ['RED', 'ORANGE', 'YELLOW'] },
-      grid: { left: 40, right: 20, top: 40, bottom: 40 },
-      xAxis: { type: 'category', data: anomalyCategories.map((x) => x.rule_name || x.rule_code), axisLabel: { rotate: 25 } },
+      grid: { left: 40, right: 20, top: 36, bottom: 36 },
+      xAxis: {
+        type: 'category',
+        data: (detailQuery.data?.anomaly_categories ?? []).map((item) => item.rule_name || item.rule_code),
+        axisLabel: { rotate: 20 },
+      },
       yAxis: { type: 'value' },
       series: [
         {
           name: 'RED',
           type: 'bar',
-          stack: 'total',
-          itemStyle: { color: SEVERITY_COLORS.RED },
-          data: anomalyCategories.map((x) => x.red_count),
+          stack: 'severity',
+          data: (detailQuery.data?.anomaly_categories ?? []).map((item) => item.red_count),
         },
         {
           name: 'ORANGE',
           type: 'bar',
-          stack: 'total',
-          itemStyle: { color: SEVERITY_COLORS.ORANGE },
-          data: anomalyCategories.map((x) => x.orange_count),
+          stack: 'severity',
+          data: (detailQuery.data?.anomaly_categories ?? []).map((item) => item.orange_count),
         },
         {
           name: 'YELLOW',
           type: 'bar',
-          stack: 'total',
-          itemStyle: { color: SEVERITY_COLORS.YELLOW },
-          data: anomalyCategories.map((x) => x.yellow_count),
+          stack: 'severity',
+          data: (detailQuery.data?.anomaly_categories ?? []).map((item) => item.yellow_count),
         },
       ],
     }),
-    [anomalyCategories],
+    [detailQuery.data?.anomaly_categories],
   );
 
-  const anomalySeverityOption = useMemo(
-    () => ({
-      color: [SEVERITY_COLORS.RED, SEVERITY_COLORS.ORANGE, SEVERITY_COLORS.YELLOW],
-      tooltip: { trigger: 'item' },
-      series: [
-        {
-          type: 'pie',
-          radius: ['40%', '72%'],
-          data: anomalySeverity.map((x) => ({
-            name: x.severity,
-            value: x.count,
-            itemStyle: { color: SEVERITY_COLORS[x.severity as keyof typeof SEVERITY_COLORS] || '#9e9e9e' },
-          })),
-        },
-      ],
-    }),
-    [anomalySeverity],
-  );
+  const handleApply = () => {
+    if (dateFromInput && dateToInput && dateFromInput > dateToInput) {
+      setErrorText('开始日期不能晚于结束日期。');
+      return;
+    }
+    if (!deptInput.trim()) {
+      setErrorText('请先选择科室。');
+      return;
+    }
+    setErrorText('');
+    setDeptName(deptInput.trim());
+    setDateFrom(dateFromInput);
+    setDateTo(dateToInput);
+  };
 
-  const detailParetoOption = useMemo(() => {
-    const sorted = detailItems;
-    const sum = sorted.reduce((acc, item) => acc + item.total_amount, 0);
-    let running = 0;
-    const cumulative = sorted.map((x) => {
-      running += x.total_amount;
-      return sum > 0 ? Number(((running / sum) * 100).toFixed(2)) : 0;
-    });
-    return {
-      tooltip: { trigger: 'axis' },
-      legend: { data: ['金额', '累计占比'] },
-      grid: { left: 40, right: 50, top: 40, bottom: 40 },
-      xAxis: { type: 'category', data: sorted.map((x) => x.item_name), axisLabel: { rotate: 25 } },
-      yAxis: [{ type: 'value' }, { type: 'value', min: 0, max: 100 }],
-      series: [
-        { name: '金额', type: 'bar', data: sorted.map((x) => x.total_amount), itemStyle: { color: '#1f7f89' } },
-        { name: '累计占比', type: 'line', yAxisIndex: 1, data: cumulative, smooth: true },
-      ],
-    };
-  }, [detailItems]);
+  const summary = detailQuery.data?.summary;
 
   return (
     <section className="dashboard-grid">
       <article className="panel panel--wide">
         <header className="panel-head">
-          <h2>科主任专题（高密度分析版）</h2>
-          <p>TOP5病种、费用结构、DIP模拟、医师对比、异常分析全模块图表化。</p>
+          <h2>科室经营分析</h2>
+          <p>围绕单科的月度运营得分、费用结构、医师差异和异常项目做复盘。</p>
         </header>
         <div className="issue-toolbar">
           <label className="field field--compact">
             <span>科室</span>
-            <select value={deptInput} onChange={(e) => setDeptInput(e.target.value)}>
-              <option value="">全部科室</option>
+            <select value={deptInput} onChange={(event) => setDeptInput(event.target.value)} disabled={isDirector}>
+              <option value="">请选择科室</option>
               {deptOptions.map((dept) => (
                 <option key={dept} value={dept}>
                   {dept}
@@ -435,183 +193,150 @@ export function DirectorTopicPage() {
             </select>
           </label>
           <label className="field field--compact">
-            <span>开始日期</span>
-            <input type="date" value={dateFromInput} onChange={(e) => setDateFromInput(e.target.value)} />
+            <span>统计开始</span>
+            <input type="date" value={dateFromInput} onChange={(event) => setDateFromInput(event.target.value)} />
           </label>
           <label className="field field--compact">
-            <span>结束日期</span>
-            <input type="date" value={dateToInput} onChange={(e) => setDateToInput(e.target.value)} />
+            <span>统计结束</span>
+            <input type="date" value={dateToInput} onChange={(event) => setDateToInput(event.target.value)} />
           </label>
-          <label className="field field--compact">
-            <span>DIP点值</span>
-            <input value={pointValueInput} onChange={(e) => setPointValueInput(e.target.value)} placeholder="建议 5~6" />
-          </label>
-          <button className="btn-secondary" onClick={onApplyFilter} type="button">
-            应用筛选
-          </button>
-          <label className="field field--compact">
-            <span>PNG图表</span>
-            <select value={exportChartKey} onChange={(e) => setExportChartKey(e.target.value)}>
-              {chartCatalog.map((x) => (
-                <option key={x.key} value={x.key}>
-                  {x.title}
-                </option>
-              ))}
-            </select>
-          </label>
-          <button className="btn-secondary" onClick={onExportPng} type="button">
-            导出PNG
-          </button>
-          <button className="btn-secondary" onClick={() => pdfMutation.mutate()} type="button" disabled={pdfMutation.isPending}>
-            {pdfMutation.isPending ? 'PDF导出中...' : '导出PDF（病种报告）'}
+          <button className="btn-secondary" onClick={handleApply} type="button">
+            查看科室分析
           </button>
         </div>
         {errorText ? <p className="error-text">{errorText}</p> : null}
       </article>
 
-      <div className="metrics-row">
+      <div className="metrics-row metrics-row--five">
         <div className="metric-card">
-          <p className="metric-label">病例总数</p>
-          <p className="metric-value">{overviewQuery.data?.summary.total_cases ?? 0}</p>
+          <p className="metric-label">综合评分</p>
+          <h3 className="metric-value">{summary?.score.total_score ?? 0}</h3>
+          <p className="metric-trend">效率 {summary?.score.efficiency_score ?? 0} / 收益 {summary?.score.revenue_score ?? 0} / 质量 {summary?.score.quality_score ?? 0}</p>
         </div>
         <div className="metric-card">
-          <p className="metric-label">总费用</p>
-          <p className="metric-value">{(overviewQuery.data?.summary.total_cost ?? 0).toFixed(2)}</p>
+          <p className="metric-label">出院人次</p>
+          <h3 className="metric-value">{summary?.case_count ?? 0}</h3>
+          <p className="metric-trend">{summary?.dept_name || '未选择科室'}</p>
         </div>
         <div className="metric-card">
-          <p className="metric-label">DIP模拟收入</p>
-          <p className="metric-value">{(overviewQuery.data?.summary.dip_sim_income ?? 0).toFixed(2)}</p>
+          <p className="metric-label">次均费用</p>
+          <h3 className="metric-value">{summary?.avg_cost ?? 0}</h3>
+          <p className="metric-trend">用于衡量单科成本结构</p>
         </div>
         <div className="metric-card">
-          <p className="metric-label">DIP模拟结余</p>
-          <p className="metric-value">{(overviewQuery.data?.summary.dip_sim_balance ?? 0).toFixed(2)}</p>
+          <p className="metric-label">平均住院日</p>
+          <h3 className="metric-value">{summary?.avg_los ?? 0}</h3>
+          <p className="metric-trend">周转效率核心指标</p>
+        </div>
+        <div className="metric-card">
+          <p className="metric-label">异常命中</p>
+          <h3 className="metric-value">{summary?.issue_count ?? 0}</h3>
+          <p className="metric-trend">需要结合规则分类排查</p>
         </div>
       </div>
 
       <article className="panel panel--wide">
         <header className="panel-head">
-          <h2>TOP5病种与趋势</h2>
-          <p>左侧排名，右侧月度总费用与模拟结余趋势。</p>
+          <h2>月度趋势</h2>
+          <p>用同一页面同时看出院规模、住院日和异常波动。</p>
         </header>
-        <div className="import-layout">
-          <ReactECharts ref={registerChartRef('disease-rank')} option={diseaseRankOption} style={{ height: 320 }} />
-          <ReactECharts ref={registerChartRef('overview-trend')} option={overviewTrendOption} style={{ height: 320 }} />
-        </div>
-        <div className="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>病种编码</th>
-                <th>病种名称</th>
-                <th>病例数</th>
-                <th>次均费用</th>
-                <th>DIP模拟结余</th>
-              </tr>
-            </thead>
-            <tbody>
-              {diseases.map((item) => (
-                <tr key={item.diagnosis_code} onClick={() => setSelectedDiagnosis(item.diagnosis_code)}>
-                  <td>{item.diagnosis_code}</td>
-                  <td>{item.diagnosis_name || '-'}</td>
-                  <td>{item.case_count}</td>
-                  <td>{item.avg_total_cost.toFixed(2)}</td>
-                  <td>{item.dip_sim_balance.toFixed(2)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        <EChart option={trendOption} style={{ height: 320 }} />
+      </article>
+
+      <div className="analysis-grid">
+        <article className="panel panel--wide">
+          <header className="panel-head">
+            <h2>费用结构</h2>
+            <p>识别药品、材料、检查等费用是否挤压收益得分。</p>
+          </header>
+          <EChart option={costOption} style={{ height: 300 }} />
+        </article>
+
+        <article className="panel panel--wide">
+          <header className="panel-head">
+            <h2>医师对比</h2>
+            <p>优先复盘次均费用高且异常命中多的医生组。</p>
+          </header>
+          <EChart option={doctorOption} style={{ height: 300 }} />
+        </article>
+      </div>
+
+      <article className="panel panel--wide">
+        <header className="panel-head">
+          <h2>评分驱动因素</h2>
+          <p>解释为什么这次分数高或低，便于直接拿去做月度复盘。</p>
+        </header>
+        <div className="driver-grid">
+          {(detailQuery.data?.score_drivers ?? []).map((item) => (
+            <div key={item.title} className={`driver-card driver-card--${item.tone}`}>
+              <strong>{item.title}</strong>
+              <p>{item.detail}</p>
+            </div>
+          ))}
+          {!detailQuery.data?.score_drivers.length ? <p className="empty-hint">暂无评分解释。</p> : null}
         </div>
       </article>
 
       <article className="panel panel--wide">
         <header className="panel-head">
-          <h2>病种详情：{selectedDiagnosis || '-'}</h2>
-          <p>{detail?.diagnosis_name || '请选择病种查看'} </p>
+          <h2>异常规则分布</h2>
+          <p>把高频异常规则聚焦到可执行整改项。</p>
         </header>
-        <div className="import-layout">
-          <ReactECharts ref={registerChartRef('cost-structure')} option={costStructureOption} style={{ height: 280 }} />
-          <ReactECharts ref={registerChartRef('cost-ratio')} option={costRatioOption} style={{ height: 280 }} />
-        </div>
-        <div className="import-layout">
-          <ReactECharts ref={registerChartRef('dip-waterfall')} option={dipWaterfallOption} style={{ height: 280 }} />
-          <ReactECharts ref={registerChartRef('dip-gauge')} option={dipGaugeOption} style={{ height: 280 }} />
-        </div>
-        <div className="import-layout">
-          <ReactECharts ref={registerChartRef('doctor-bar')} option={doctorBarOption} style={{ height: 320 }} />
-          <ReactECharts ref={registerChartRef('doctor-scatter')} option={doctorScatterOption} style={{ height: 320 }} />
-        </div>
-        <div className="import-layout">
-          <ReactECharts ref={registerChartRef('anomaly-category')} option={anomalyCategoryOption} style={{ height: 320 }} />
-          <ReactECharts ref={registerChartRef('anomaly-severity')} option={anomalySeverityOption} style={{ height: 320 }} />
-        </div>
-        <ReactECharts ref={registerChartRef('detail-pareto')} option={detailParetoOption} style={{ height: 320 }} />
+        <EChart option={anomalyOption} style={{ height: 320 }} />
       </article>
 
-      <article className="panel panel--wide">
-        <header className="panel-head">
-          <h2>医师对比明细</h2>
-          <p>病例数门槛：5</p>
-        </header>
-        <div className="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>医师</th>
-                <th>病例数</th>
-                <th>次均费用</th>
-                <th>平均住院日</th>
-                <th>非草药药占比%</th>
-                <th>耗占比%</th>
-                <th>DIP模拟结余</th>
-              </tr>
-            </thead>
-            <tbody>
-              {doctors.map((item) => (
-                <tr key={item.doctor_name}>
-                  <td>{item.doctor_name}</td>
-                  <td>{item.case_count}</td>
-                  <td>{item.avg_total_cost.toFixed(2)}</td>
-                  <td>{item.avg_los.toFixed(2)}</td>
-                  <td>{item.avg_drug_ratio.toFixed(2)}</td>
-                  <td>{item.avg_material_ratio.toFixed(2)}</td>
-                  <td>{item.dip_sim_balance.toFixed(2)}</td>
+      <div className="analysis-grid">
+        <article className="panel panel--wide">
+          <header className="panel-head">
+            <h2>高金额项目 TOP</h2>
+            <p>重点查看对科室收益和结构影响最大的项目。</p>
+          </header>
+          <div className="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>项目</th>
+                  <th>总金额</th>
+                  <th>病例数</th>
+                  <th>占比</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </article>
+              </thead>
+              <tbody>
+                {(detailQuery.data?.detail_top_items ?? []).map((item, index) => (
+                  <tr key={`${item.item_name}-${index}`}>
+                    <td>{item.item_name}</td>
+                    <td>{item.total_amount}</td>
+                    <td>{item.case_count}</td>
+                    <td>{item.ratio}%</td>
+                  </tr>
+                ))}
+                {!detailQuery.data?.detail_top_items.length ? (
+                  <tr>
+                    <td colSpan={4} style={{ textAlign: 'center' }}>
+                      暂无数据
+                    </td>
+                  </tr>
+                ) : null}
+              </tbody>
+            </table>
+          </div>
+        </article>
 
-      <article className="panel panel--wide">
-        <header className="panel-head">
-          <h2>明细TOP项目</h2>
-          <p>用于耗材/药品等异常高金额项目定位。</p>
-        </header>
-        <div className="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>项目编码</th>
-                <th>项目名称</th>
-                <th>总金额</th>
-                <th>病例数</th>
-                <th>占比%</th>
-              </tr>
-            </thead>
-            <tbody>
-              {detailItems.map((item, idx) => (
-                <tr key={`${item.item_code || 'NA'}-${idx}`}>
-                  <td>{item.item_code || '-'}</td>
-                  <td>{item.item_name}</td>
-                  <td>{item.total_amount.toFixed(2)}</td>
-                  <td>{item.case_count}</td>
-                  <td>{item.ratio.toFixed(2)}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </article>
+        <article className="panel panel--wide">
+          <header className="panel-head">
+            <h2>建议动作</h2>
+            <p>给科主任和运营官的下一步动作建议。</p>
+          </header>
+          <div className="suggestion-list">
+            {(detailQuery.data?.suggestions ?? []).map((item) => (
+              <div key={item} className="suggestion-item">
+                {item}
+              </div>
+            ))}
+            {!detailQuery.data?.suggestions.length ? <p className="empty-hint">暂无建议。</p> : null}
+          </div>
+        </article>
+      </div>
     </section>
   );
 }

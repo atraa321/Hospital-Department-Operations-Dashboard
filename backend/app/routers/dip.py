@@ -32,8 +32,10 @@ from app.services.dip_service import (
 
 router = APIRouter(prefix="/dip", tags=["dip"])
 
+# Deprecated: kept only for migration compatibility with the pre-operations
+# frontend flow. New pages should use /operations/* instead of DIP endpoints.
 
-@router.get("/versions", response_model=DipVersionOut)
+@router.get("/versions", response_model=DipVersionOut, deprecated=True)
 def versions(
     db: Session = Depends(get_db),
     _: CurrentUser = Depends(
@@ -50,7 +52,7 @@ def versions(
     return get_versions(db)
 
 
-@router.post("/mappings/recalculate", response_model=DipRecalcOut)
+@router.post("/mappings/recalculate", response_model=DipRecalcOut, deprecated=True)
 def recalc_mappings(
     limit: int = 5000,
     db: Session = Depends(get_db),
@@ -59,7 +61,7 @@ def recalc_mappings(
     return recalculate_mappings(db=db, limit=limit)
 
 
-@router.get("/mappings", response_model=DipMappingListOut)
+@router.get("/mappings", response_model=DipMappingListOut, deprecated=True)
 def mapping_list(
     page: int = 1,
     page_size: int = 50,
@@ -79,7 +81,7 @@ def mapping_list(
     return list_mappings(db=db, page=page, page_size=page_size, status=status)
 
 
-@router.get("/unmapped", response_model=DipMappingListOut)
+@router.get("/unmapped", response_model=DipMappingListOut, deprecated=True)
 def unmapped_list(
     page: int = 1,
     page_size: int = 50,
@@ -98,7 +100,7 @@ def unmapped_list(
     return list_mappings(db=db, page=page, page_size=page_size, status="UNMAPPED")
 
 
-@router.get("/stats", response_model=DipStatsOut)
+@router.get("/stats", response_model=DipStatsOut, deprecated=True)
 def dip_stats(
     page: int = 1,
     page_size: int = 20,
@@ -138,7 +140,7 @@ def dip_stats(
         raise HTTPException(status_code=400, detail=str(exc)) from exc
 
 
-@router.get("/departments", response_model=DipDepartmentListOut)
+@router.get("/departments", response_model=DipDepartmentListOut, deprecated=True)
 def dip_departments(
     db: Session = Depends(get_db),
     _: CurrentUser = Depends(
@@ -155,12 +157,12 @@ def dip_departments(
     return list_departments(db=db)
 
 
-@router.post("/unmapped/{patient_id}/manual-fill", response_model=DipMappingItemOut)
+@router.post("/unmapped/{patient_id}/manual-fill", response_model=DipMappingItemOut, deprecated=True)
 def unmapped_manual_fill(
     patient_id: str,
     payload: DipManualFillIn,
     db: Session = Depends(get_db),
-    _: CurrentUser = Depends(require_roles(ROLE_ADMIN, ROLE_DIRECTOR, ROLE_MEDICAL, ROLE_INSURANCE)),
+    current_user: CurrentUser = Depends(require_roles(ROLE_ADMIN, ROLE_DIRECTOR, ROLE_MEDICAL, ROLE_INSURANCE)),
 ):
     try:
         return manual_fill_mapping(
@@ -168,7 +170,7 @@ def unmapped_manual_fill(
             patient_id=patient_id,
             dip_code=payload.dip_code,
             note=payload.note,
-            operator=payload.operator,
+            operator=current_user.user_id,
         )
     except ValueError as exc:
         raise HTTPException(status_code=400, detail=str(exc)) from exc

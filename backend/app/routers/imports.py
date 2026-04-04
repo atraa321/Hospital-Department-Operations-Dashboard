@@ -11,11 +11,6 @@ from sqlalchemy.orm import Session
 from app.core.config import get_settings
 from app.core.security import (
     ROLE_ADMIN,
-    ROLE_DIRECTOR,
-    ROLE_FINANCE,
-    ROLE_INSURANCE,
-    ROLE_MEDICAL,
-    ROLE_VIEWER,
     CurrentUser,
     require_roles,
 )
@@ -24,6 +19,7 @@ from app.models.import_batch import ImportBatch, ImportType
 from app.models.import_issue import ImportIssue
 from app.schemas.imports import (
     ImportBatchOut,
+    ImportCancelOut,
     ImportDataClearIn,
     ImportDataClearOut,
     ImportDataRestoreOut,
@@ -35,10 +31,12 @@ from app.schemas.imports import (
 from app.services.import_service import (
     build_case_cost_backup,
     clear_case_cost_data,
+    enqueue_case_home_basic_import,
+    enqueue_case_home_filtered_import,
+    enqueue_import,
+    get_import_queue_depth,
+    request_cancel_import_batch,
     restore_case_cost_data_from_backup_bytes,
-    start_case_home_basic_import,
-    start_case_home_filtered_import,
-    start_import,
 )
 
 router = APIRouter(prefix="/imports", tags=["imports"])
@@ -70,7 +68,7 @@ def import_start(
     import_type: ImportType,
     file: UploadFile = File(...),
     db: Session = Depends(get_db),
-    _: CurrentUser = Depends(require_roles(ROLE_ADMIN, ROLE_MEDICAL, ROLE_FINANCE)),
+    _: CurrentUser = Depends(require_roles(ROLE_ADMIN)),
 ):
     settings = get_settings()
     if import_type == ImportType.CASE_HOME_FILTERED:
@@ -79,10 +77,12 @@ def import_start(
             detail="CASE_HOME_FILTERED 请使用 /imports/case-home/start 接口。",
         )
     _validate_upload_file(file, settings.max_upload_mb, "导入文件", (".xlsx", ".xls", ".csv"))
+    if get_import_queue_depth(db) >= settings.import_queue_limit:
+        raise HTTPException(status_code=429, detail="导入队列已满，请稍后再试。")
 
-    batch = start_import(db, file, import_type)
+    batch = enqueue_import(db, file, import_type, requested_by=_.user_id)
     return ImportStartOut(
-        message="Import task processed.",
+        message="Import task queued.",
         batch=ImportBatchOut.model_validate(batch, from_attributes=True),
     )
 
@@ -91,14 +91,16 @@ def import_start(
 def case_home_import_start(
     source_file: UploadFile = File(...),
     db: Session = Depends(get_db),
-    _: CurrentUser = Depends(require_roles(ROLE_ADMIN, ROLE_MEDICAL, ROLE_FINANCE)),
+    _: CurrentUser = Depends(require_roles(ROLE_ADMIN)),
 ):
     settings = get_settings()
     _validate_upload_file(source_file, settings.max_upload_mb, "病案首页源文件", (".xlsx", ".xls", ".csv"))
+    if get_import_queue_depth(db) >= settings.import_queue_limit:
+        raise HTTPException(status_code=429, detail="导入队列已满，请稍后再试。")
 
-    batch = start_case_home_basic_import(db, source_file)
+    batch = enqueue_case_home_basic_import(db, source_file, requested_by=_.user_id)
     return ImportStartOut(
-        message="Case-home basic import processed.",
+        message="Case-home basic import queued.",
         batch=ImportBatchOut.model_validate(batch, from_attributes=True),
     )
 
@@ -108,16 +110,18 @@ def case_home_filtered_import_start_compat(
     source_file: UploadFile = File(...),
     filter_file: UploadFile | None = File(default=None),
     db: Session = Depends(get_db),
-    _: CurrentUser = Depends(require_roles(ROLE_ADMIN, ROLE_MEDICAL, ROLE_FINANCE)),
+    _: CurrentUser = Depends(require_roles(ROLE_ADMIN)),
 ):
     settings = get_settings()
     _validate_upload_file(source_file, settings.max_upload_mb, "病案首页源文件", (".xlsx", ".xls", ".csv"))
     if filter_file:
         _validate_upload_file(filter_file, settings.max_upload_mb, "筛选文件", (".xlsx", ".xls", ".csv"))
+    if get_import_queue_depth(db) >= settings.import_queue_limit:
+        raise HTTPException(status_code=429, detail="导入队列已满，请稍后再试。")
 
-    batch = start_case_home_filtered_import(db, source_file, filter_file)
+    batch = enqueue_case_home_filtered_import(db, source_file, filter_file, requested_by=_.user_id)
     return ImportStartOut(
-        message="Case-home basic import processed.",
+        message="Case-home basic import queued.",
         batch=ImportBatchOut.model_validate(batch, from_attributes=True),
     )
 
@@ -125,7 +129,7 @@ def case_home_filtered_import_start_compat(
 @router.get("/backup/case-cost.xlsx")
 def backup_case_cost(
     db: Session = Depends(get_db),
-    _: CurrentUser = Depends(require_roles(ROLE_ADMIN, ROLE_MEDICAL, ROLE_FINANCE)),
+    _: CurrentUser = Depends(require_roles(ROLE_ADMIN)),
 ):
     filename, content = build_case_cost_backup(db)
     return StreamingResponse(
@@ -170,21 +174,40 @@ def restore_case_cost(
 def import_list(
     db: Session = Depends(get_db),
     limit: int = 20,
-    _: CurrentUser = Depends(
-        require_roles(
-            ROLE_ADMIN,
-            ROLE_DIRECTOR,
-            ROLE_MEDICAL,
-            ROLE_INSURANCE,
-            ROLE_FINANCE,
-            ROLE_VIEWER,
-        )
-    ),
+    _: CurrentUser = Depends(require_roles(ROLE_ADMIN)),
 ):
     stmt = select(ImportBatch).order_by(desc(ImportBatch.id)).limit(limit)
     items = db.execute(stmt).scalars().all()
     return ImportListOut(
         items=[ImportBatchOut.model_validate(item, from_attributes=True) for item in items]
+    )
+
+
+@router.get("/{batch_id}", response_model=ImportBatchOut)
+def import_batch_detail(
+    batch_id: str,
+    db: Session = Depends(get_db),
+    _: CurrentUser = Depends(require_roles(ROLE_ADMIN)),
+):
+    batch = db.execute(select(ImportBatch).where(ImportBatch.batch_id == batch_id)).scalars().first()
+    if batch is None:
+        raise HTTPException(status_code=404, detail="batch not found")
+    return ImportBatchOut.model_validate(batch, from_attributes=True)
+
+
+@router.post("/{batch_id}/cancel", response_model=ImportCancelOut)
+def cancel_import_batch(
+    batch_id: str,
+    db: Session = Depends(get_db),
+    _: CurrentUser = Depends(require_roles(ROLE_ADMIN)),
+):
+    try:
+        batch = request_cancel_import_batch(db, batch_id)
+    except ValueError as exc:
+        raise HTTPException(status_code=404, detail=str(exc)) from exc
+    return ImportCancelOut(
+        message="Import cancel request accepted.",
+        batch=ImportBatchOut.model_validate(batch, from_attributes=True),
     )
 
 
@@ -196,16 +219,7 @@ def import_issue_list(
     page_size: int = 50,
     severity: str | None = None,
     error_code: str | None = None,
-    _: CurrentUser = Depends(
-        require_roles(
-            ROLE_ADMIN,
-            ROLE_DIRECTOR,
-            ROLE_MEDICAL,
-            ROLE_INSURANCE,
-            ROLE_FINANCE,
-            ROLE_VIEWER,
-        )
-    ),
+    _: CurrentUser = Depends(require_roles(ROLE_ADMIN)),
 ):
     page = max(page, 1)
     page_size = max(min(page_size, 500), 1)
@@ -241,16 +255,7 @@ def import_issue_csv(
     db: Session = Depends(get_db),
     severity: str | None = None,
     error_code: str | None = None,
-    _: CurrentUser = Depends(
-        require_roles(
-            ROLE_ADMIN,
-            ROLE_DIRECTOR,
-            ROLE_MEDICAL,
-            ROLE_INSURANCE,
-            ROLE_FINANCE,
-            ROLE_VIEWER,
-        )
-    ),
+    _: CurrentUser = Depends(require_roles(ROLE_ADMIN)),
 ):
     conditions = [ImportIssue.batch_id == batch_id]
     if severity:
@@ -293,16 +298,7 @@ def import_issue_xlsx(
     db: Session = Depends(get_db),
     severity: str | None = None,
     error_code: str | None = None,
-    _: CurrentUser = Depends(
-        require_roles(
-            ROLE_ADMIN,
-            ROLE_DIRECTOR,
-            ROLE_MEDICAL,
-            ROLE_INSURANCE,
-            ROLE_FINANCE,
-            ROLE_VIEWER,
-        )
-    ),
+    _: CurrentUser = Depends(require_roles(ROLE_ADMIN)),
 ):
     conditions = [ImportIssue.batch_id == batch_id]
     if severity:
