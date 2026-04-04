@@ -17,6 +17,15 @@ Thumbs.db
 # Data
 backend/data/uploads/
 backend/data/*.xlsx
+backend/data/
+基础数据/
+/病案出院病人.csv
+/费用_住院号.csv
+/费用清单.csv
+/全院病案1-2月.xlsx
+/病案信息*.xls
+/病案信息*.xlsx
+/docs/*raw_extract*.txt
 
 # Runtime/deploy artifacts
 logs/
