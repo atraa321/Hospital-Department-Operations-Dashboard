@@ -1,5 +1,5 @@
 import { Suspense, lazy, useMemo } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useIsFetching, useQuery } from '@tanstack/react-query';
 import { NavLink, Navigate, Route, Routes } from 'react-router-dom';
 import { fetchCurrentUser, type CurrentUser } from './lib/api';
 
@@ -54,6 +54,18 @@ function App() {
     queryFn: fetchCurrentUser,
     retry: false,
   });
+  const operationsRefreshCount = useIsFetching({
+    predicate: (query) => {
+      const rootKey = String(query.queryKey[0] ?? '');
+      return [
+        'operations-overview',
+        'operations-overview-report',
+        'operations-rankings-report',
+        'department-rankings-lite',
+        'department-operation-detail',
+      ].includes(rootKey);
+    },
+  });
 
   const currentUser = currentUserQuery.data;
   const navItems = useMemo(
@@ -85,6 +97,16 @@ function App() {
           ))}
         </nav>
       </header>
+
+      {operationsRefreshCount > 0 ? (
+        <div className="refresh-indicator" role="status" aria-live="polite">
+          <span className="refresh-indicator__dot" />
+          <div>
+            <strong>后台刷新中</strong>
+            <span>正在读取最新经营数据，你可以继续操作页面。</span>
+          </div>
+        </div>
+      ) : null}
 
       <main className="content-shell">
         <section className="status-ribbon">

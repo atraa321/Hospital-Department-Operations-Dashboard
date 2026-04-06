@@ -1,4 +1,5 @@
 import axios from 'axios';
+import type { AxiosProgressEvent } from 'axios';
 
 function extractApiErrorMessage(error: unknown): string | null {
   if (!axios.isAxiosError(error)) {
@@ -323,8 +324,12 @@ api.interceptors.response.use(
   },
 );
 
-// Large data imports may run for a long time; keep request alive until server returns.
-const IMPORT_REQUEST_TIMEOUT_MS = 60_000;
+type ImportUploadOptions = {
+  onUploadProgress?: (progress: number) => void;
+};
+
+// Large data files may take several minutes to upload before the backend can queue them.
+const IMPORT_REQUEST_TIMEOUT_MS = 15 * 60 * 1000;
 
 export async function fetchHealth() {
   const response = await api.get<{ status: string }>('/health');
@@ -533,29 +538,43 @@ export async function downloadImportIssues(payload: {
   URL.revokeObjectURL(url);
 }
 
-export async function createImportBatch(payload: { importType: ImportType; file: File }) {
+function buildUploadProgressHandler(onUploadProgress?: (progress: number) => void) {
+  if (!onUploadProgress) {
+    return undefined;
+  }
+  return (event: AxiosProgressEvent) => {
+    const progress = event.total && event.total > 0 ? Math.min(100, Math.round((event.loaded / event.total) * 100)) : 0;
+    onUploadProgress(progress);
+  };
+}
+
+export async function createImportBatch(payload: { importType: ImportType; file: File } & ImportUploadOptions) {
   const formData = new FormData();
   formData.append('file', payload.file);
   const response = await api.post<ImportStartResponse>('/imports/start', formData, {
     params: { import_type: payload.importType },
     headers: { 'Content-Type': 'multipart/form-data' },
     timeout: IMPORT_REQUEST_TIMEOUT_MS,
+    onUploadProgress: buildUploadProgressHandler(payload.onUploadProgress),
   });
   return response.data;
 }
 
-export async function createCaseHomeImportBatch(payload: { sourceFile: File }) {
+export async function createCaseHomeImportBatch(payload: { sourceFile: File } & ImportUploadOptions) {
   const formData = new FormData();
   formData.append('source_file', payload.sourceFile);
   const response = await api.post<ImportStartResponse>('/imports/case-home/start', formData, {
     headers: { 'Content-Type': 'multipart/form-data' },
     timeout: IMPORT_REQUEST_TIMEOUT_MS,
+    onUploadProgress: buildUploadProgressHandler(payload.onUploadProgress),
   });
   return response.data;
 }
 
-export async function createCaseHomeFilteredImportBatch(payload: { sourceFile: File; filterFile?: File }) {
-  return createCaseHomeImportBatch({ sourceFile: payload.sourceFile });
+export async function createCaseHomeFilteredImportBatch(
+  payload: { sourceFile: File; filterFile?: File } & ImportUploadOptions,
+) {
+  return createCaseHomeImportBatch({ sourceFile: payload.sourceFile, onUploadProgress: payload.onUploadProgress });
 }
 
 export async function downloadCaseCostBackup() {
